@@ -19,10 +19,11 @@ class CreateCrewTable extends Migration
             $table->string('name', 45)->nullable();
             $table->string('surname', 45)->nullable();
             $table->string('email', 64)->nullable();
-            $table->integer('rank_id')->unsigned();
-            $table->integer('ship_id')->unsigned();
-            $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('cascade');
-            $table->foreign('ship_id')->references('id')->on('ships')->onDelete('cascade');
+            $table->unsignedBigInteger('rank_id')->nullable();
+            $table->unsignedBigInteger('ship_id')->nullable();
+            $table->foreign('rank_id')->references('id')->on('ranks');
+            $table->foreign('ship_id')->references('id')->on('ships');
+            Schema::enableForeignKeyConstraints();
 
         });
     }
