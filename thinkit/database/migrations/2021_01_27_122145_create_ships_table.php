@@ -16,9 +16,12 @@ class CreateShipsTable extends Migration
         Schema::create('ships', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
             $table->string('name', 45)->nullable();
             $table->string('serial_number', 8)->nullable();
             $table->string('image', 256)->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

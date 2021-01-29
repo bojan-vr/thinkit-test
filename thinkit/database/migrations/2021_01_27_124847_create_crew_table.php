@@ -16,14 +16,16 @@ class CreateCrewTable extends Migration
         Schema::create('crew', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
             $table->string('name', 45)->nullable();
             $table->string('surname', 45)->nullable();
             $table->string('email', 64)->nullable();
             $table->unsignedBigInteger('rank_id')->nullable();
             $table->unsignedBigInteger('ship_id')->nullable();
-            $table->foreign('rank_id')->references('id')->on('ranks');
-            $table->foreign('ship_id')->references('id')->on('ships');
-            Schema::enableForeignKeyConstraints();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('ship_id')->references('id')->on('ships')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

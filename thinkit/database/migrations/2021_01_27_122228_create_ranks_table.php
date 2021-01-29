@@ -16,7 +16,10 @@ class CreateRanksTable extends Migration
         Schema::create('ranks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
             $table->string('name', 45)->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
