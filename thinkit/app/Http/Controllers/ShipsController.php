@@ -52,7 +52,7 @@ class ShipsController extends Controller
         $ship->created_by = auth()->user()->id;
         $ship->save();
 
-        return back();
+        return redirect()->route('ships.index');
     }
 
     /**

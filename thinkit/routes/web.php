@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CrewController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\ShipsController;
 use Illuminate\Support\Facades\Route;
@@ -22,9 +23,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
+	Route::get('/home', function() {return redirect('/ships');})->name('home');
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
@@ -34,6 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('ships', ShipsController::class);
 	Route::resource('crew', CrewController::class);
 	Route::resource('ranks', RankController::class);
+	Route::resource('notifications', NotificationsController::class);
+	Route::post('editor/upload', 'App\Http\Controllers\EditorController@upload')->name('editor.image-upload');
 
 });
 

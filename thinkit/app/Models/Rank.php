@@ -15,4 +15,8 @@ class Rank extends Model
     {
         return $this->belongsTo(User::class,'created_by');   
     }
+
+    public function crew() {
+        return $this->hasMany(Crew::class);
+    }
 }

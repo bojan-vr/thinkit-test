@@ -16,6 +16,11 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
+            $table->string('name', 45)->nullable();
+            $table->LONGTEXT('content')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

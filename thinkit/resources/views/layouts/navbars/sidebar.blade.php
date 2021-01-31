@@ -89,6 +89,11 @@
                                     {{ __('Ranks') }}
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('notifications.index') }}">
+                                    {{ __('Notifications') }}
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

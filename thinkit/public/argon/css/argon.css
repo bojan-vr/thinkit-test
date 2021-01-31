@@ -21867,3 +21867,13 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
 
     height: 3px;
 }
+.preview {
+    width: 100%;
+    min-height: 400px;
+    border: 1px solid #b0afac;
+}
+.rank-row {
+    text-align: center;
+    background-color: #657deb;
+    color: #fff;
+}

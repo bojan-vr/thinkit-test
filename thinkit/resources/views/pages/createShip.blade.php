@@ -36,7 +36,7 @@
                             </div>
                             <div class="form-group{{ $errors->has('image') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-image">{{ __('image url') }}</label>
-                                <input type="text" name="image" id="input-image" class="form-control form-control-alternative{{ $errors->has('image') ? ' is-invalid' : '' }}" placeholder="" value="" required>
+                                <input type="text" name="image" id="input-image" class="form-control form-control-alternative{{ $errors->has('image') ? ' is-invalid' : '' }}" placeholder="" value="https://www.cruisetradenews.com/wp-content/uploads/2019/11/CMV-PacificAria-TransOcean-Livery-RGB1.jpg" required>
 
                                 @if ($errors->has('image'))
                                     <span class="invalid-feedback" role="alert">
