@@ -36,6 +36,7 @@
                             </div>
                             <div class="col text-right">
                                 <a href="{{route('crew.create')}}" class="btn btn-sm btn-primary">Create Crew</a>
+                                <a onclick="sendMail({{$notification->id}})" class="btn btn-danger">Send Mail</a>
                             </div>
                         </div>
                     </div>
@@ -79,15 +80,15 @@
 @push('js')
 <script src="{{asset('assets/js/sweetalert2.min.js')}}"></script>
     <script>
-        function deleteCrew($id) {
+        function sendMail($id) {
             swal({
-                title: 'Remove Crew?',
-                text: "This will delete crew member from ship",
+                title: 'Send Mail?',
+                text: "Are you sure you want to send mail?",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#0CC27E',
                 cancelButtonColor: '#FF586B',
-                confirmButtonText: 'Yes, remove!',
+                confirmButtonText: 'Yes!',
                 cancelButtonText: 'Cancel',
                 confirmButtonClass: 'btn btn-success mr-5',
                 cancelButtonClass: 'btn btn-danger',
@@ -98,16 +99,14 @@
                     _token: "{{csrf_token()}}",
                 };
                 $.ajax({
-                    url: '/ships/remove_crew/' + $id,
+                    url: '/notifications/send_mail/' + $id,
                     type: 'POST',
                     dataType: 'json',
                     data: data,
                     success: function (response) {
-                        $('#crew-'+$id).remove();
+                        swal("Success!", "Email Has been sent!", "success");
                     },
-                    error: function (response) {
-                        alert(response);
-                    }
+                    
                 });
 
             }, function (dismiss) {

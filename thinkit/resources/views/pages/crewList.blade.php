@@ -103,6 +103,7 @@
                     data: data,
                     success: function (response) {
                         $('#crew-'+$id).remove();
+                        swal("Success!", "Crew has been removed!", "success");
                     },
                     error: function (response) {
                         alert(response);

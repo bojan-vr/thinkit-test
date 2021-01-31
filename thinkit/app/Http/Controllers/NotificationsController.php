@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NotificationMail;
 use App\Models\Notification;
 use App\Models\Rank;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class NotificationsController extends Controller
 {
@@ -67,12 +69,9 @@ class NotificationsController extends Controller
         $notification->created_by = auth()->user()->id;
         $notification->save();
         foreach($request->ranks as $rank) {
-           
             $notification->ranks()->attach($rank);
         }
-        
         return redirect()->route('notifications.index');
-        
     }
 
     /**
@@ -123,6 +122,18 @@ class NotificationsController extends Controller
     {
         $ship = Notification::find($id);
         $ship->delete();
+        return response()->json(['status' => true]);
+    }
+
+    public function sendNotification($id) {
+        $notification = Notification::with(['ranks.crew'])->find($id);
+        $mailTo = [];
+        foreach($notification->ranks as $rank) {
+            foreach($rank->crew as $crew) {
+                array_push($mailTo, $crew->email);
+            }
+        }
+        $mail = Mail::to($mailTo)->send(new NotificationMail($notification->content, $notification->name));
         return response()->json(['status' => true]);
     }
 }

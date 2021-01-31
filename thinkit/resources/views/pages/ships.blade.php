@@ -98,6 +98,7 @@
                     data: data,
                     success: function (response) {
                         $('#ship-'+$id).remove();
+                        swal("Success!", "Ship has been deleted!", "success");
                     },
                     error: function (response) {
                         alert(response);

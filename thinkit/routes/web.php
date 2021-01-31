@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 
 	Route::post('/ships/remove_crew/{id}', 'App\Http\Controllers\ShipsController@removeCrewMember')->name('remove_crew_member');
+	Route::post('/notifications/send_mail/{id}', 'App\Http\Controllers\NotificationsController@sendNotification')->name('send_mail');
 	Route::resource('ships', ShipsController::class);
 	Route::resource('crew', CrewController::class);
 	Route::resource('ranks', RankController::class);
