@@ -31,27 +31,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach($ranks as $rank)
-                                <tr id="rank-{{$rank->id}}">
-                                    <th scope="row">
-                                        {{$rank->id}}
-                                    </th>
-                                    <th scope="row">
-                                        {{$rank->created_at}}
-                                    </th>
-                                    <th scope="row">
-                                        {{$rank->name}}
-                                    </th>
-                                    <td>
-                                        {{ isset($rank->created_by_user->name) ? $rank->created_by_user->name : '' }}
-                                    </td>
-                                    <td>
-                                        <a href="{{route('ranks.edit', $rank->id)}}" class="btn btn-primary">edit</a>
-                                        <a onclick="deleteCrew({{$rank->id}})" class="btn btn-danger">Delete</a>
-                                    </td>
-                                </tr>
-                              @endforeach
-                                
+                                @if($ranks->isEmpty())
+                                    <tr>
+                                        <td class="text-center" colspan="5">
+                                            No Crew Please Created
+                                        </td>
+                                    </tr>
+                                @endif
+                                @foreach($ranks as $rank)
+                                    <tr id="rank-{{$rank->id}}">
+                                        <th scope="row">
+                                            {{$rank->id}}
+                                        </th>
+                                        <th scope="row">
+                                            {{$rank->created_at}}
+                                        </th>
+                                        <th scope="row">
+                                            {{$rank->name}}
+                                        </th>
+                                        <td>
+                                            {{ isset($rank->created_by_user->name) ? $rank->created_by_user->name : '' }}
+                                        </td>
+                                        <td>
+                                            <a href="{{route('ranks.edit', $rank->id)}}" class="btn btn-primary">edit</a>
+                                            <a onclick="deleteCrew({{$rank->id}})" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

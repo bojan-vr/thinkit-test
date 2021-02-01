@@ -35,36 +35,42 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach($crew as $member)
-                                <tr id="crew-{{$member->id}}">
-                                    <th scope="row">
-                                        {{$member->id}}
-                                    </th>
-                                    <th scope="row">
-                                        {{$member->name}}
-                                    </th>
-                                    <th scope="row">
-                                        {{$member->surname}}
-                                    </th>
-                                    <td>  
-                                        {{$member->email}}
-                                    </td>
-                                    <td>
-                                        {{ isset($member->ship->name) ? $member->ship->name : '' }}
-                                    </td>
-                                    <td>
-                                        {{ isset($member->rank->name) ? $member->rank->name : '' }}
-                                    </td>
-                                    <td>
-                                        {{ isset($member->created_by_user->name) ? $member->created_by_user->name : '' }}
-                                    </td>
-                                    <td>
-                                        <a href="{{route('crew.edit', $member->id)}}" class="btn btn-primary">edit</a>
-                                        <a onclick="deleteCrew({{$member->id}})" class="btn btn-danger">Delete</a>
-                                    </td>
-                                </tr>
-                              @endforeach
-                                
+                                @if($crew->isEmpty())
+                                    <tr>
+                                        <td class="text-center" colspan="5">
+                                            No Crew Please Created
+                                        </td>
+                                    </tr>
+                                @endif
+                                @foreach($crew as $member)
+                                    <tr id="crew-{{$member->id}}">
+                                        <th scope="row">
+                                            {{$member->id}}
+                                        </th>
+                                        <th scope="row">
+                                            {{$member->name}}
+                                        </th>
+                                        <th scope="row">
+                                            {{$member->surname}}
+                                        </th>
+                                        <td>  
+                                            {{$member->email}}
+                                        </td>
+                                        <td>
+                                            {{ isset($member->ship->name) ? $member->ship->name : '' }}
+                                        </td>
+                                        <td>
+                                            {{ isset($member->rank->name) ? $member->rank->name : '' }}
+                                        </td>
+                                        <td>
+                                            {{ isset($member->created_by_user->name) ? $member->created_by_user->name : '' }}
+                                        </td>
+                                        <td>
+                                            <a href="{{route('crew.edit', $member->id)}}" class="btn btn-primary">edit</a>
+                                            <a onclick="deleteCrew({{$member->id}})" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -106,7 +112,6 @@
                         swal("Success!", "Crew has been removed!", "success");
                     },
                     error: function (response) {
-                        alert(response);
                     }
                 });
 

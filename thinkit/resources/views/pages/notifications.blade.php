@@ -34,58 +34,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach($notifications as $notification)
-                                <tr id="notification-{{$notification->id}}">
-                                    <th scope="row">
-                                        {{$notification->id}}
-                                    </th>
-                                    <th scope="row">
-                                        {{$notification->created_at}}
-                                    </th>
-                                    <td>  
-                                        {{$notification->name}}
-                                    </td>
-                                    <td>
-                                        
-                                    </td>
-                                    <td> 
-                                        {{$notification->created_by_user->name}}
-                                    </td>
-                                    <td>
-                                        <a href="{{route('notifications.show', $notification->id)}}" class="btn btn-primary">details</a>
-                                        <a onclick="deleteShip({{$notification->id}})" class="btn btn-danger">delete</a>
-                                    </td>
-                                </tr>
-                              @endforeach
+                                @if($notifications->isEmpty())
+                                    <tr>
+                                        <td class="text-center" colspan="5">
+                                            No Notifications Pleace Create
+                                        </td>
+                                    </tr>
+                                @endif
+                                @foreach($notifications as $notification)
+                                    <tr id="notification-{{$notification->id}}">
+                                        <th scope="row">
+                                            {{$notification->id}}
+                                        </th>
+                                        <th scope="row">
+                                            {{$notification->created_at}}
+                                        </th>
+                                        <td>  
+                                            {{$notification->name}}
+                                        </td>
+                                        <td>
+                                            
+                                        </td>
+                                        <td> 
+                                            {{$notification->created_by_user->name}}
+                                        </td>
+                                        <td>
+                                            <a href="{{route('notifications.show', $notification->id)}}" class="btn btn-primary">details</a>
+                                            <a onclick="deleteShip({{$notification->id}})" class="btn btn-danger">delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="verifyModalContent2_title">Create Notification</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <form method="post" action="" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="form-group">
-                                        <textarea class="ckeditor form-control" name="wysiwyg-editor"></textarea>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-        
                 </div>
             </div>
         </div>
@@ -95,9 +77,7 @@
 
 @push('js')
     <script src="{{asset('assets/js/sweetalert2.min.js')}}"></script>
-
     <script>
-
         function deleteShip($id) {
             swal({
                 title: 'Delete Ship?',
@@ -125,7 +105,6 @@
                         $('#notification-'+$id).remove();
                     },
                     error: function (response) {
-                        alert(response);
                     }
                 });
 

@@ -64,7 +64,12 @@ class ShipsController extends Controller
     public function show($id)
     {
         $ship = Ship::with(['crew.rank'])->find($id);
-        return view('pages.shipDetails')->with(['ship' => $ship]);   
+        $freeCrew = Crew::whereNull('ship_id')->get();
+        return view('pages.shipDetails')
+            ->with([
+                'ship' => $ship,
+                'freeCrew' => $freeCrew
+            ]);   
     }
 
     /**
@@ -122,6 +127,16 @@ class ShipsController extends Controller
         $crew = Crew::find($id);
         $crew->ship_id = null;
         $crew->save();
+        return response()->json(['status' => true]);
+    }
+
+    public function addCrewMember(Request $request, $id)
+    {
+        foreach($request->crew as $crew) {
+            $member = Crew::find($crew);
+            $member->ship_id = $request->id;
+            $member->save();
+        }
         return response()->json(['status' => true]);
     }
 }
