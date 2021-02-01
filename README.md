@@ -5,7 +5,7 @@ setup local server
 
 Step 2
 copy .env.example and add database connection
-leave mail smtp dummy account i provided
+if you want to send mail connect google account in env and enable Less Secure Apps in gmail https://myaccount.google.com/security?gar=1
 
 Step 3 
 composer install
