@@ -196,6 +196,7 @@
 
             }, function (dismiss) {
                 if (dismiss === 'cancel') {
+                    console.log(dismiss);
                 }
             })
         };
